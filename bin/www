@@ -7,6 +7,19 @@
 var app = require('../app');
 var debug = require('debug')('dbconv:server');
 var http = require('http');
+var dbConfigOracle = require('../dbconfig.js');
+var oracledb = require('oracledb');
+
+async function init() { 
+    try { 
+        await oracledb.createPool(dbConfigOracle);
+           
+    } catch(err) {
+        console.log("init() error: " + err.message);
+    }
+}
+
+init();
 
 /**
  * Get port from environment and store in Express.
